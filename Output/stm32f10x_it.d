@@ -32,6 +32,4 @@
 ..\..\output\stm32f10x_it.o: ..\..\User\./key/bsp_key.h
 ..\..\output\stm32f10x_it.o: ..\..\User\./lcd/bsp_xpt2046_lcd.h
 ..\..\output\stm32f10x_it.o: ..\..\User\./led/bsp_led.h
-..\..\output\stm32f10x_it.o: ..\..\User\./usart/bsp_usart.h
-..\..\output\stm32f10x_it.o: D:\MDK-ARM\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\stm32f10x_it.o: ..\..\User\TimBase\bsp_TiMbase.h

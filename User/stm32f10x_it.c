@@ -27,8 +27,7 @@
 #include "stm32f10x_it.h"
 #include "./key/bsp_key.h"
 #include "./lcd/bsp_xpt2046_lcd.h"
-#include "./led/bsp_led.h"   
-#include "./usart/bsp_usart.h"
+#include "./led/bsp_led.h"
 #include "bsp_TiMbase.h" 
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
@@ -159,7 +158,7 @@ void  BASIC_TIM_IRQHandler (void)
 {
 	if ( TIM_GetITStatus( BASIC_TIM, TIM_IT_Update) != RESET ) 
 	{	
-		ButtonEventHandler();  //´¥Ãþ¼ì²â
+		ButtonEventHandler();  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		XPT2046_TouchEvenHandler();
 		TIM_ClearITPendingBit(BASIC_TIM, TIM_FLAG_Update);  		 
 	}		 	

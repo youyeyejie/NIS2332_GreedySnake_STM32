@@ -28,13 +28,12 @@
 ..\..\output\main.o: ..\..\Libraries\FWlib\inc\stm32f10x_usart.h
 ..\..\output\main.o: ..\..\Libraries\FWlib\inc\stm32f10x_wwdg.h
 ..\..\output\main.o: ..\..\Libraries\FWlib\inc\misc.h
-..\..\output\main.o: ..\..\User\./usart/bsp_usart.h
-..\..\output\main.o: D:\MDK-ARM\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\main.o: ..\..\User\./lcd/bsp_ili9341_lcd.h
 ..\..\output\main.o: ..\..\User\./font/fonts.h
 ..\..\output\main.o: ..\..\User\./font/fonts.h
 ..\..\output\main.o: ..\..\User\./lcd/bsp_xpt2046_lcd.h
 ..\..\output\main.o: ..\..\User\./flash/bsp_spi_flash.h
+..\..\output\main.o: D:\MDK-ARM\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\..\output\main.o: ..\..\User\./led/bsp_led.h
 ..\..\output\main.o: ..\..\User\./key/bsp_key.h
 ..\..\output\main.o: ..\..\User\snake.h
