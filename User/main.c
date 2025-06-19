@@ -1,20 +1,3 @@
-/**
-  ******************************************************************************
-  * @file    main.c
-  * @author  mr
-  * @version V1.0
-  * @date    2021-02-28
-  * @brief   ̰������Ϸ
-  ******************************************************************************
-  * @attention
-  *
-  * ʵ��ƽ̨:Ұ�� F103-ָ���� STM32 ������ 
-  * ��̳    :http://www.firebbs.cn
-  * �Ա�    :https://fire-stm32.taobao.com
-  *
-  ******************************************************************************
-  */ 
- 
 #include "stm32f10x.h"
 #include "./lcd/bsp_ili9341_lcd.h"
 #include "./lcd/bsp_xpt2046_lcd.h"
@@ -25,38 +8,17 @@
 #include <string.h>
 #include "bsp_TiMbase.h" 
 
-
-
 int main(void)
 {		
-
-	//LCD ��ʼ��
 	ILI9341_Init();  
-	
-	//��������ʼ��
-	// XPT2046_Init();
-	//��FLASH���ȡУ����������FLASH�޲�������ʹ��ģʽ3����У��
-	// Calibrate_or_Get_TouchParaWithFlash(6,0);
-	
+	XPT2046_Init();
 	BASIC_TIM_Init();
 
-//	USART_Config();  
+	// USART_Config();  
 	LED_GPIO_Config();
 	Key_GPIO_Config();
- 
-	//���ƴ���Ϸ����
-	Palette_Init(LCD_SCAN_MODE);
- 
-	while ( 1 )
-	{
-		snakeMove();  //һֱѭ�����ƶ��غ���
-	}
-		
+
+	// snake
+	init_snake_env(LCD_SCAN_MODE);
+	while(1) move_snake();
 }
-
-
-
-
-
-/* ------------------------------------------end of file---------------------------------------- */
-

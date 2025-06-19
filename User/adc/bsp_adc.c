@@ -3,135 +3,135 @@
 __IO uint16_t ADC_ConvertedValue;
 
 /**
-  * @brief  ADC GPIO ³õÊ¼»¯
-  * @param  ÎÞ
-  * @retval ÎÞ
+  * @brief  ADC GPIO ï¿½ï¿½Ê¼ï¿½ï¿½
+  * @param  ï¿½ï¿½
+  * @retval ï¿½ï¿½
   */
 static void ADCx_GPIO_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	// ´ò¿ª ADC IO¶Ë¿ÚÊ±ÖÓ
+	// ï¿½ï¿½ ADC IOï¿½Ë¿ï¿½Ê±ï¿½ï¿½
 	ADC_GPIO_APBxClock_FUN ( ADC_GPIO_CLK, ENABLE );
 	
-	// ÅäÖÃ ADC IO Òý½ÅÄ£Ê½
+	// ï¿½ï¿½ï¿½ï¿½ ADC IO ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 	GPIO_InitStructure.GPIO_Pin = ADC_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
 	
-	// ³õÊ¼»¯ ADC IO
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ ADC IO
 	GPIO_Init(ADC_PORT, &GPIO_InitStructure);				
 }
 
 /**
-  * @brief  ÅäÖÃADC¹¤×÷Ä£Ê½
-  * @param  ÎÞ
-  * @retval ÎÞ
+  * @brief  ï¿½ï¿½ï¿½ï¿½ADCï¿½ï¿½ï¿½ï¿½Ä£Ê½
+  * @param  ï¿½ï¿½
+  * @retval ï¿½ï¿½
   */
 static void ADCx_Mode_Config(void)
 {
 	DMA_InitTypeDef DMA_InitStructure;
 	ADC_InitTypeDef ADC_InitStructure;
 	
-	// ´ò¿ªDMAÊ±ÖÓ
+	// ï¿½ï¿½DMAÊ±ï¿½ï¿½
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
-	// ´ò¿ªADCÊ±ÖÓ
+	// ï¿½ï¿½ADCÊ±ï¿½ï¿½
 	ADC_APBxClock_FUN ( ADC_CLK, ENABLE );
 	
-	// ¸´Î»DMA¿ØÖÆÆ÷
+	// ï¿½ï¿½Î»DMAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	DMA_DeInit(ADC_DMA_CHANNEL);
 	
-	// ÅäÖÃ DMA ³õÊ¼»¯½á¹¹Ìå
-	// ÍâÉè»ùÖ·Îª£ºADC Êý¾Ý¼Ä´æÆ÷µØÖ·
+	// ï¿½ï¿½ï¿½ï¿½ DMA ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ö·Îªï¿½ï¿½ADC ï¿½ï¿½ï¿½Ý¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
 	DMA_InitStructure.DMA_PeripheralBaseAddr = ( uint32_t ) ( & ( ADCx->DR ) );
 	
-	// ´æ´¢Æ÷µØÖ·£¬Êµ¼ÊÉÏ¾ÍÊÇÒ»¸öÄÚ²¿SRAMµÄ±äÁ¿
+	// ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Êµï¿½ï¿½ï¿½Ï¾ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ú²ï¿½SRAMï¿½Ä±ï¿½ï¿½ï¿½
 	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&ADC_ConvertedValue;
 	
-	// Êý¾ÝÔ´À´×ÔÍâÉè
+	// ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
 	
-	// »º³åÇø´óÐ¡Îª1£¬»º³åÇøµÄ´óÐ¡Ó¦¸ÃµÈÓÚ´æ´¢Æ÷µÄ´óÐ¡
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Îª1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡Ó¦ï¿½Ãµï¿½ï¿½Ú´æ´¢ï¿½ï¿½ï¿½Ä´ï¿½Ð¡
 	DMA_InitStructure.DMA_BufferSize = 1;
 	
-	// ÍâÉè¼Ä´æÆ÷Ö»ÓÐÒ»¸ö£¬µØÖ·²»ÓÃµÝÔö
+	// ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½
 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
 
-	// ´æ´¢Æ÷µØÖ·¹Ì¶¨
+	// ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½Ö·ï¿½Ì¶ï¿½
 	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Disable; 
 	
-	// ÍâÉèÊý¾Ý´óÐ¡Îª°ë×Ö£¬¼´Á½¸ö×Ö½Ú
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½Ð¡Îªï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½
 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
 	
-	// ´æ´¢Æ÷Êý¾Ý´óÐ¡Ò²Îª°ë×Ö£¬¸úÍâÉèÊý¾Ý´óÐ¡ÏàÍ¬
+	// ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½Ð¡Ò²Îªï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½Ð¡ï¿½ï¿½Í¬
 	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
 	
-	// Ñ­»·´«ÊäÄ£Ê½
+	// Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 	DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;	
 
-	// DMA ´«ÊäÍ¨µÀÓÅÏÈ¼¶Îª¸ß£¬µ±Ê¹ÓÃÒ»¸öDMAÍ¨µÀÊ±£¬ÓÅÏÈ¼¶ÉèÖÃ²»Ó°Ïì
+	// DMA ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½Îªï¿½ß£ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ò»ï¿½ï¿½DMAÍ¨ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½Ã²ï¿½Ó°ï¿½ï¿½
 	DMA_InitStructure.DMA_Priority = DMA_Priority_High;
 	
-	// ½ûÖ¹´æ´¢Æ÷µ½´æ´¢Æ÷Ä£Ê½£¬ÒòÎªÊÇ´ÓÍâÉèµ½´æ´¢Æ÷
+	// ï¿½ï¿½Ö¹ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ç´ï¿½ï¿½ï¿½ï¿½èµ½ï¿½æ´¢ï¿½ï¿½
 	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
 	
-	// ³õÊ¼»¯DMA
+	// ï¿½ï¿½Ê¼ï¿½ï¿½DMA
 	DMA_Init(ADC_DMA_CHANNEL, &DMA_InitStructure);
 	
-	// Ê¹ÄÜ DMA Í¨µÀ
+	// Ê¹ï¿½ï¿½ DMA Í¨ï¿½ï¿½
 	DMA_Cmd(ADC_DMA_CHANNEL , ENABLE);
 	
-	// ADC Ä£Ê½ÅäÖÃ
-	// Ö»Ê¹ÓÃÒ»¸öADC£¬ÊôÓÚµ¥Ä£Ê½
+	// ADC Ä£Ê½ï¿½ï¿½ï¿½ï¿½
+	// Ö»Ê¹ï¿½ï¿½Ò»ï¿½ï¿½ADCï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ä£Ê½
 	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
 	
-	// ½ûÖ¹É¨ÃèÄ£Ê½£¬¶àÍ¨µÀ²ÅÒª£¬µ¥Í¨µÀ²»ÐèÒª
+	// ï¿½ï¿½Ö¹É¨ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª
 	ADC_InitStructure.ADC_ScanConvMode = DISABLE ; 
 
-	// Á¬Ðø×ª»»Ä£Ê½
+	// ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Ä£Ê½
 	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
 
-	// ²»ÓÃÍâ²¿´¥·¢×ª»»£¬Èí¼þ¿ªÆô¼´¿É
+	// ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
 
-	// ×ª»»½á¹ûÓÒ¶ÔÆë
+	// ×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
 	
-	// ×ª»»Í¨µÀ1¸ö
+	// ×ªï¿½ï¿½Í¨ï¿½ï¿½1ï¿½ï¿½
 	ADC_InitStructure.ADC_NbrOfChannel = 1;	
 		
-	// ³õÊ¼»¯ADC
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ADC
 	ADC_Init(ADCx, &ADC_InitStructure);
 	
-	// ÅäÖÃADCÊ±ÖÓÎªPCLK2µÄ8·ÖÆµ£¬¼´9MHz
+	// ï¿½ï¿½ï¿½ï¿½ADCÊ±ï¿½ï¿½ÎªPCLK2ï¿½ï¿½8ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½9MHz
 	RCC_ADCCLKConfig(RCC_PCLK2_Div8); 
 	
-	// ÅäÖÃ ADC Í¨µÀ×ª»»Ë³ÐòÎª1£¬µÚÒ»¸ö×ª»»£¬²ÉÑùÊ±¼äÎª55.5¸öÊ±ÖÓÖÜÆÚ
+	// ï¿½ï¿½ï¿½ï¿½ ADC Í¨ï¿½ï¿½×ªï¿½ï¿½Ë³ï¿½ï¿½Îª1ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Îª55.5ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ADC_RegularChannelConfig(ADCx, ADC_CHANNEL, 1, ADC_SampleTime_55Cycles5);
 	
-	// Ê¹ÄÜADC DMA ÇëÇó
+	// Ê¹ï¿½ï¿½ADC DMA ï¿½ï¿½ï¿½ï¿½
 	ADC_DMACmd(ADCx, ENABLE);
 	
-	// ¿ªÆôADC £¬²¢¿ªÊ¼×ª»»
+	// ï¿½ï¿½ï¿½ï¿½ADC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼×ªï¿½ï¿½
 	ADC_Cmd(ADCx, ENABLE);
 	
-	// ³õÊ¼»¯ADC Ð£×¼¼Ä´æÆ÷  
+	// ï¿½ï¿½Ê¼ï¿½ï¿½ADC Ð£×¼ï¿½Ä´ï¿½ï¿½ï¿½  
 	ADC_ResetCalibration(ADCx);
-	// µÈ´ýÐ£×¼¼Ä´æÆ÷³õÊ¼»¯Íê³É
+	// ï¿½È´ï¿½Ð£×¼ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	while(ADC_GetResetCalibrationStatus(ADCx));
 	
-	// ADC¿ªÊ¼Ð£×¼
+	// ADCï¿½ï¿½Ê¼Ð£×¼
 	ADC_StartCalibration(ADCx);
-	// µÈ´ýÐ£×¼Íê³É
+	// ï¿½È´ï¿½Ð£×¼ï¿½ï¿½ï¿½
 	while(ADC_GetCalibrationStatus(ADCx));
 	
-	// ÓÉÓÚÃ»ÓÐ²ÉÓÃÍâ²¿´¥·¢£¬ËùÒÔÊ¹ÓÃÈí¼þ´¥·¢ADC×ª»» 
+	// ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð²ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ADC×ªï¿½ï¿½ 
 	ADC_SoftwareStartConvCmd(ADCx, ENABLE);
 }
 
 /**
-  * @brief  ADC³õÊ¼»¯
-  * @param  ÎÞ
-  * @retval ÎÞ
+  * @brief  ADCï¿½ï¿½Ê¼ï¿½ï¿½
+  * @param  ï¿½ï¿½
+  * @retval ï¿½ï¿½
   */
 void ADCx_Init(void)
 {
